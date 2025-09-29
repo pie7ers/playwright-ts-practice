@@ -13,6 +13,7 @@ Having installed:
 
 Run:
 - npm ci
+- npx playwright install --with-deps
 - npm run make-env
 - check package.json for more commands
 
