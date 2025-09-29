@@ -24,7 +24,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],           // prints results in terminal
-    ['html', { outputFolder: 'reports/playwright', open: 'never' }] // generates HTML report but doesn’t auto-open
+    ['html', { outputFolder: 'playwright-report', open: 'never' }] // generates HTML report but doesn’t auto-open
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
