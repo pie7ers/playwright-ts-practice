@@ -1,5 +1,11 @@
 import { Locator, Page, expect } from "@playwright/test";
 
+export interface IResize {
+  element: Locator;
+  resizeX?: number;
+  resizeY?: number;
+}
+
 export default class PlaywrightBase {
 
   readonly page: Page
@@ -31,4 +37,24 @@ export default class PlaywrightBase {
       links.map(link => (link as HTMLAnchorElement).textContent?.trim() || '')
     );
   }
+
+  async resizeElement(options: IResize) {
+    const box = await options.element.boundingBox()
+    if (!box) throw new Error(`element ${options.element} not found`)
+
+    const startX = box.x + box.width / 2;
+    const startY = box.y + box.height / 2;
+
+    await this.page.mouse.move(startX, startY)
+    await this.page.mouse.down()
+
+    await this.page.mouse.move(
+      startX + (options.resizeX || 0),
+      startY + (options.resizeY || 0), 
+      { steps: 20 }//simulate a slow drag
+    );
+
+    await this.page.mouse.up();
+  }
+
 } 

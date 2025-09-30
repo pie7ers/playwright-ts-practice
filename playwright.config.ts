@@ -37,7 +37,6 @@ export default defineConfig({
   timeout: 60000,
   /* Configure projects for major browsers */
   projects: [
-    { name: 'setup', testMatch: /login.setup.ts/ },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
@@ -48,9 +47,9 @@ export default defineConfig({
     /* {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
-    },
+    }, */
 
-    {
+    /*{
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     }, */

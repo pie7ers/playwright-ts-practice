@@ -3,8 +3,6 @@ import HomePage from '../../pages/herokuapp/HomePage'
 import { HOME_MENU_ITEMS } from '../../constants/herokuapp'
 import { CONSTS } from '../../utils/consts'
 
-
-
 test.describe('Herokuapp Home Page', () => {
   let home: HomePage
   let evidencePath: string
