@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       HEROKU_BASE_URL: ${{ vars.HEROKU_BASE_URL}}
+      BASIC_AUTH_USER_GLOBAL: ${{ secrets.BASIC_AUTH_USER_GLOBAL}}
+      BASIC_AUTH_PASS_GLOBAL: ${{ secrets.BASIC_AUTH_PASS_GLOBAL}}
+      BASIC_AUTH_USER_CHROMIUM: ${{ secrets.BASIC_AUTH_USER_CHROMIUM}}
+      BASIC_AUTH_PASS_CHROMIUM: ${{ secrets.BASIC_AUTH_PASS_CHROMIUM}}
       
     steps:
     - uses: actions/checkout@v4 
