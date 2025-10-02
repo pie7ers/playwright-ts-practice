@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { CONSTS } from './utils/consts';
 
 /**
  * Read environment variables from file.
@@ -12,7 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  /* testDir: './tests', */
+  testDir: './tests',
+  testIgnore: ['herokuapp/basicAuthOtherPractices/**'],
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -33,15 +35,27 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    //here httpCredentials is global then all the browsers will inherit the credentials
+    httpCredentials: {
+      username: CONSTS.BASIC_AUTH_USER_GLOBAL,
+      password: CONSTS.BASIC_AUTH_PASS_GLOBAL,
+    }
   },
   timeout: 60000,
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      //all the options declared at the project level override the global options
+      use: {
+        ...devices['Desktop Chrome'],
+        //here httpCredentials is local then chromium will inherit the credentials
+        httpCredentials: {
+          username: CONSTS.BASIC_AUTH_USER_CHROMIUM,
+          password: CONSTS.BASIC_AUTH_PASS_CHROMIUM,
+        }
+      },
       //dependencies: ['setup'],
-      //testIgnore: /login.setup.ts/
     },
 
     /* {
