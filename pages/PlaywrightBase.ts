@@ -50,7 +50,7 @@ export default class PlaywrightBase {
 
     await this.page.mouse.move(
       startX + (options.resizeX || 0),
-      startY + (options.resizeY || 0), 
+      startY + (options.resizeY || 0),
       { steps: 20 }//simulate a slow drag
     );
 
