@@ -55,4 +55,5 @@ export const PAGES_PATH = {
   nestedFrames: 'nested_frames',
   iframe: 'iframe',
   basicAuth: 'basic_auth',
+  digestAuth: 'digest_auth',
 }

@@ -13,10 +13,12 @@
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.1",
+    "digest-fetch": "^3.1.1",
     "dotenv": "^17.2.2",
     "env-var": "^7.5.0",
     "picocolors": "^1.1.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "urllib": "^4.8.2"
   }
 }
