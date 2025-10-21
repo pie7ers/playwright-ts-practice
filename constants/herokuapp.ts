@@ -56,4 +56,5 @@ export const PAGES_PATH = {
   iframe: 'iframe',
   basicAuth: 'basic_auth',
   digestAuth: 'digest_auth',
+  javaScriptAlerts: 'javascript_alerts',
 }

@@ -9,7 +9,7 @@ test.describe('Herokuapp Basic Auth Page', () => {
 
   test.beforeEach(async ({ page }) => {
     basicAuth = new BasicAuthPage(page)
-    await basicAuth.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.basicAuth}`)
+    await basicAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.basicAuth}`)
   })
 
   test('Validate text title', async () => {

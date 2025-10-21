@@ -17,9 +17,9 @@ export default class BasicAuthPage extends HerokuappBase {
 
   async getDigestAuthState() {
     const { default: DigestFetch } = await import('digest-fetch');
-    const client = new DigestFetch(CONSTS.BASIC_AUTH_USER_GLOBAL, CONSTS.BASIC_AUTH_PASS_GLOBAL);
+    const client = new DigestFetch(CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL, CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL);
 
-    const url = `${CONSTS.BASE_URL}/${PAGES_PATH.digestAuth}`;
+    const url = `${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.digestAuth}`;
     const response = await client.fetch(url);
 
     if (!response.ok) {

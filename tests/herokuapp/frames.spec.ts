@@ -8,7 +8,7 @@ test.describe('Herokuapp Frames Page', () => {
 
   test.beforeEach(async ({ page }) => {
     frames = new FramesPage(page)
-    await frames.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.frames}`)
+    await frames.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.frames}`)
   })
 
   test('should list example links', async () => {
