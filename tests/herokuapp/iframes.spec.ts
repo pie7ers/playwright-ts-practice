@@ -9,7 +9,7 @@ test.describe('Herokuapp IFrames Page', () => {
 
   test.beforeEach(async ({ page }) => {
     iframes = new IFramesPage(page)
-    await iframes.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.iframe}`)
+    await iframes.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.iframe}`)
   })
 
   test('validate text title', async () => {

@@ -36,8 +36,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     //here httpCredentials is global then all the browsers will inherit the credentials
     httpCredentials: {
-      username: CONSTS.BASIC_AUTH_USER_GLOBAL,
-      password: CONSTS.BASIC_AUTH_PASS_GLOBAL,
+      username: CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL,
+      password: CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL,
     }
   },
   timeout: 60000,
@@ -50,8 +50,8 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         //here httpCredentials is local then chromium will inherit the credentials
         httpCredentials: {
-          username: CONSTS.BASIC_AUTH_USER_CHROMIUM,
-          password: CONSTS.BASIC_AUTH_PASS_CHROMIUM,
+          username: CONSTS.HEROKU_BASIC_AUTH_USER_CHROMIUM,
+          password: CONSTS.HEROKU_BASIC_AUTH_PASS_CHROMIUM,
         }
       },
       //dependencies: ['setup'],

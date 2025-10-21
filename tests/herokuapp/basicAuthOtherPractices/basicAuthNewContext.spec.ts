@@ -12,14 +12,14 @@ test.describe('Herokuapp Basic Auth Page', () => {
     browser = await chromium.launch()
     adminContext = await browser.newContext({
       httpCredentials: {
-        username: CONSTS.BASIC_AUTH_USER_CHROMIUM,
-        password: CONSTS.BASIC_AUTH_PASS_CHROMIUM
+        username: CONSTS.HEROKU_BASIC_AUTH_USER_CHROMIUM,
+        password: CONSTS.HEROKU_BASIC_AUTH_PASS_CHROMIUM
       }
     })
 
     const pageAdmin = await adminContext.newPage()
     basicAuth = new BasicAuthPage(pageAdmin)
-    await basicAuth.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.basicAuth}`)
+    await basicAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.basicAuth}`)
   })
 
   test('Basic Auth new context', async () => {

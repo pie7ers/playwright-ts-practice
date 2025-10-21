@@ -8,7 +8,7 @@ test.describe('Herokuapp Frames Page', () => {
 
   test.beforeEach(async ({ page }) => {
     frames = new NestedFramesPage(page)
-    await frames.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.nestedFrames}`)
+    await frames.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.nestedFrames}`)
   })
 
   test('validate frame top', async () => {

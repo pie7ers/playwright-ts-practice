@@ -10,7 +10,7 @@ test.describe('Herokuapp Home Page', () => {
   test.beforeEach(async ({ page }) => {
     home = new HomePage(page)
     evidencePath = `${home.mainPath}/home`
-    await home.goto(CONSTS.BASE_URL)
+    await home.goto(CONSTS.HEROKU_BASE_URL)
   })
 
   test('should display the correct heading', async () => {

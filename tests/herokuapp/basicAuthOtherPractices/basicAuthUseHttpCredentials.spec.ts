@@ -5,8 +5,8 @@ import { CONSTS } from '../../../utils/consts'
 
 test.use({
   httpCredentials: {
-    username: CONSTS.BASIC_AUTH_USER_GLOBAL,
-    password: CONSTS.BASIC_AUTH_PASS_GLOBAL
+    username: CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL,
+    password: CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL
   }
 })
 
@@ -15,7 +15,7 @@ test.describe('Herokuapp Basic Auth Page', () => {
 
   test.beforeEach(async ({ page }) => {
     basicAuth = new BasicAuthPage(page)
-    await basicAuth.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.basicAuth}`)
+    await basicAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.basicAuth}`)
   })
 
   test('Basic Auth use http credentials from test file', async () => {

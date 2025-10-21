@@ -15,6 +15,10 @@ export default class HerokuappBase extends PlaywrightBase {
     this.footherPoweredBy = page.getByRole('link', { name: 'Elemental Selenium' })
   }
 
+  getPage(){
+    return this.page
+  }
+
   async clickExampleLink(linkText: string) {
     await this.page.click(`ul li a:has-text("${linkText}")`);
   }
@@ -27,7 +31,7 @@ export default class HerokuappBase extends PlaywrightBase {
   async digestAuthState() {
 
     const options: RequestOptions = {
-      digestAuth: `${CONSTS.BASIC_AUTH_USER_GLOBAL}:${CONSTS.BASIC_AUTH_PASS_GLOBAL}`,
+      digestAuth: `${CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL}:${CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL}`,
       method: 'GET'
     }
 

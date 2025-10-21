@@ -1,9 +1,18 @@
 import { Locator, Page, expect } from "@playwright/test";
 
+export type dialogType = 'alert' | 'confirm' | 'prompt'
+export type confirmType = 'accept' | 'dismiss'
 export interface IResize {
   element: Locator;
   resizeX?: number;
   resizeY?: number;
+}
+
+interface IDialogReturn {
+  type: string,
+  message: string,
+  defaultValue: string,
+  page: Page | null,
 }
 
 export default class PlaywrightBase {
@@ -55,6 +64,42 @@ export default class PlaywrightBase {
     );
 
     await this.page.mouse.up();
+  }
+
+  async wait(time: number) {
+    await this.page.waitForTimeout(time)
+  }
+
+  /**
+    * @example
+    ```ts
+    const alertPromise = javaScriptAlerts.jsAlert()
+    await javaScriptAlerts.buttonForJSAlert.click()//event to open the alert
+    const alert = await alertPromise
+    ```
+  */
+  async dialog(confirmType: confirmType = 'accept', promptMessage?: string): Promise<IDialogReturn> {
+    return new Promise<IDialogReturn>(resolve => {
+      this.page.on('dialog', async dialog => {
+        const alert: IDialogReturn = {
+          type: dialog.type(),
+          message: dialog.message(),
+          defaultValue: dialog.defaultValue(),
+          page: dialog.page()
+        }
+        if (confirmType === 'accept') await dialog.accept(promptMessage)
+        else await dialog.dismiss()
+        resolve(alert)
+      })
+    })
+  }
+
+  /**
+    * @see PlaywrightBase.dialog() to get IDialogReturn
+  */
+  dialogExpects(dialog: IDialogReturn, type: dialogType, message: string) {
+    expect(dialog.type).toBe(type)
+    expect(dialog.message).toBe(message)
   }
 
 } 

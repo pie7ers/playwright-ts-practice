@@ -10,7 +10,7 @@ test.describe('Digest Authetication using as Basic', async () => {
 
   test.beforeEach(async ({ page }) => {
     digestAuth = new DigestAuthPage(page)
-    await digestAuth.goto(`${CONSTS.BASE_URL}/${PAGES_PATH.digestAuth}`)
+    await digestAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.digestAuth}`)
   })
 
   test('Validate text title', async () => {
