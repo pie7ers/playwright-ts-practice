@@ -57,4 +57,5 @@ export const PAGES_PATH = {
   basicAuth: 'basic_auth',
   digestAuth: 'digest_auth',
   javaScriptAlerts: 'javascript_alerts',
+  brokenImages: 'broken_images',
 }
