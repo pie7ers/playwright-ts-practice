@@ -1,4 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
+import ImageValidations from "../validations/ImageValidations";
+import { TypeImageExtensions } from "../models/images";
 
 export type dialogType = 'alert' | 'confirm' | 'prompt'
 export type confirmType = 'accept' | 'dismiss'
@@ -100,6 +102,19 @@ export default class PlaywrightBase {
   dialogExpects(dialog: IDialogReturn, type: dialogType, message: string) {
     expect(dialog.type).toBe(type)
     expect(dialog.message).toBe(message)
+  }
+
+  async expectImages(locator: Locator, expectedExtension: TypeImageExtensions | TypeImageExtensions[], expectIsBroken?: boolean | boolean[]) {
+    const count = await locator.count()
+    for (let i = 0; i < count; i++) {
+      const image = locator.nth(i)
+      const extension = Array.isArray(expectedExtension) ? expectedExtension[i] : expectedExtension
+      const isBroken = Array.isArray(expectIsBroken) ? expectIsBroken[i] : expectIsBroken
+      const expects = new ImageValidations(image)
+      await expects.isVisible()
+      await expects.isBroken(isBroken)
+      await expects.validateExtension(extension)
+    }
   }
 
 } 
