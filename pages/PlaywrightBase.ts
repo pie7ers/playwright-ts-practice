@@ -17,6 +17,12 @@ interface IDialogReturn {
   page: Page | null,
 }
 
+interface ISanpshot {
+  maxDiffPixelRatio?: number;
+  maxDiffPixels?: number;
+  threshold?: number;
+}
+
 export default class PlaywrightBase {
 
   readonly page: Page
@@ -115,6 +121,41 @@ export default class PlaywrightBase {
       await expects.isBroken(isBroken)
       await expects.validateExtension(extension)
     }
+  }
+
+  /**
+   * to avoid issues with OS it's recommended to add the attribute snapshotPathTemplate into the plawyright.config.ts
+   * example: 
+   * ```ts
+   * export default defineConfig({
+      testDir: './tests',
+      snapshotPathTemplate: '{snapshotDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}',
+      //output: tests/herokuapp/visual/home.spec.ts-snapshots/a-b-test-control-chromium.png
+   * })
+   * ```
+   * @param snapshotName to know how place the proper value check https://playwright.dev/docs/test-snapshots#generating-screenshots
+   * old alternative expect.soft(await this.page.screenshot()).toMatchSnapshot(snapshotName, snapshotOptions)
+   * @example visualTest('home-1.png')
+   * -
+   * the image name should it be like: image-name-browserName-darwin.png (each browser should have a sample)
+   * "home-1-chromium-darwin.png"
+  */
+  async visualTest(snapshotName: string, snapshotOptions?: ISanpshot) {
+    await expect.soft(this.page).toHaveScreenshot(snapshotName, snapshotOptions)
+  }
+
+  async scrollToTheEndOfThePage() {
+    await this.page.evaluate(() => {
+      window.scroll(0, document.body.scrollHeight)
+    })
+  }
+
+  async scrollToElementIntoView(selector: string) {
+    await this.page.locator(selector).scrollIntoViewIfNeeded();
+  }
+
+  printViewport() {
+    console.log("VIEWPORT: ", this.page.viewportSize())
   }
 
 } 

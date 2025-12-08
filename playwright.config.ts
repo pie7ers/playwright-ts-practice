@@ -39,8 +39,18 @@ export default defineConfig({
       username: CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL,
       password: CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL,
     }
-  },
+  },  
+  //snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+  snapshotPathTemplate: '{snapshotDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}',
   timeout: 60000,
+  expect: {
+    toMatchSnapshot: {
+      maxDiffPixelRatio: 0.02,
+    },
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.05
+    }
+  },
   /* Configure projects for major browsers */
   projects: [
     {
@@ -48,6 +58,8 @@ export default defineConfig({
       //all the options declared at the project level override the global options
       use: {
         ...devices['Desktop Chrome'],
+        viewport: { width: 1920, height: 1080, },
+        //viewport: { width: 3456, height: 2234 },
         //here httpCredentials is local then chromium will inherit the credentials
         httpCredentials: {
           username: CONSTS.HEROKU_BASIC_AUTH_USER_CHROMIUM,
@@ -57,10 +69,13 @@ export default defineConfig({
       //dependencies: ['setup'],
     },
 
-    /* {
+    {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    }, */
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 1920, height: 1080, },
+      },
+    },
 
     /*{
       name: 'webkit',
