@@ -1,9 +1,10 @@
 import { Locator, Page, expect } from "@playwright/test";
 import ImageValidations from "../validations/ImageValidations";
 import { TypeImageExtensions } from "../models/images";
+import { SortDirection, sortElementsByDirecction } from "../tests/helpers/sorting"
 
-export type dialogType = 'alert' | 'confirm' | 'prompt'
-export type confirmType = 'accept' | 'dismiss'
+export type DialogType = 'alert' | 'confirm' | 'prompt'
+export type ConfirmType = 'accept' | 'dismiss'
 export interface IResize {
   element: Locator;
   resizeX?: number;
@@ -38,7 +39,7 @@ export default class PlaywrightBase {
   async clickWithRedirectionToURL(locator: Locator, urlExpected: string) {
     await locator.click()
     await this.page.waitForURL(urlExpected, { timeout: 5000 })
-    expect(this.page.url()).toBe(urlExpected)
+    expect.soft(this.page.url()).toBe(urlExpected)
   }
 
   async fullScreenShot(path: string = 'screenshot-test.png') {
@@ -86,7 +87,7 @@ export default class PlaywrightBase {
     const alert = await alertPromise
     ```
   */
-  async dialog(confirmType: confirmType = 'accept', promptMessage?: string): Promise<IDialogReturn> {
+  async dialog(confirmType: ConfirmType = 'accept', promptMessage?: string): Promise<IDialogReturn> {
     return new Promise<IDialogReturn>(resolve => {
       this.page.on('dialog', async dialog => {
         const alert: IDialogReturn = {
@@ -105,9 +106,9 @@ export default class PlaywrightBase {
   /**
     * @see PlaywrightBase.dialog() to get IDialogReturn
   */
-  dialogExpects(dialog: IDialogReturn, type: dialogType, message: string) {
-    expect(dialog.type).toBe(type)
-    expect(dialog.message).toBe(message)
+  dialogExpects(dialog: IDialogReturn, type: DialogType, message: string) {
+    expect.soft(dialog.type).toBe(type)
+    expect.soft(dialog.message).toBe(message)
   }
 
   async expectImages(locator: Locator, expectedExtension: TypeImageExtensions | TypeImageExtensions[], expectIsBroken?: boolean | boolean[]) {
@@ -156,6 +157,23 @@ export default class PlaywrightBase {
 
   printViewport() {
     console.log("VIEWPORT: ", this.page.viewportSize())
+  }
+
+  async validateUrl(url: string): Promise<void> {
+    await expect.soft(this.page).toHaveURL(url)
+  }
+
+  validateSort(elements: Array<string | number>, sortType: SortDirection) {
+    const expectedSort = sortElementsByDirecction(elements, sortType)
+    expect.soft(elements).toEqual(expectedSort)
+  }
+
+  async getAllAttributesOfDOMElement(locator: Locator): Promise<Record<string, any>> {
+    return locator.evaluate(element =>
+      Object.fromEntries(
+        Array.from(element.attributes).map(attr => [attr.name, attr.value])
+      )
+    )
   }
 
 } 
