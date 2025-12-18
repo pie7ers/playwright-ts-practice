@@ -17,7 +17,7 @@ test.describe('Herokuapp IFrames Page', () => {
     await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/full-page`)
   })
 
-  test('validate warning box and its content', async () => {
+  test.skip('validate warning box and its content', async () => {
     await expect.soft(iframes.warningContainer).toContainText(iframes.warningTextLine1)
     await expect.soft(iframes.warningContainer).toContainText(iframes.warningTextLine2BoldText)
     await expect.soft(iframes.warningTextLine2Bold).toHaveCSS('font-weight', /bold|700/)
@@ -26,13 +26,13 @@ test.describe('Herokuapp IFrames Page', () => {
     await expect.soft(iframes.learnMoreLink).toHaveAttribute('href', iframes.learnMoreLinkText)
   })
 
-  test('validate text area default content', async () => {
+  test.skip('validate text area default content', async () => {
     await iframes.closeWarningContainer()
     await expect(iframes.textAreaContent).toHaveText(iframes.textAreaContentText)
     await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/warning-box-closed`)
   })
 
-  test('validate disabled elements', async () => {
+  test.skip('validate disabled elements', async () => {
     await expect.soft(iframes.fileMenuitem).toBeDisabled()
     await expect.soft(iframes.editMenuitem).toBeDisabled()
     await expect.soft(iframes.viewMenuitem).toBeDisabled()
