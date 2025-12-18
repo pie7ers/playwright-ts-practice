@@ -1,0 +1,12 @@
+name: Playwright Tests (Scheduled Monday and Friday)
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs Monday and Friday at 7:00 am Colombia time
+    - cron: "0 12 * * 1"
+    - cron: "0 12 * * 5"
+    
+jobs:
+  run:
+    uses: ./.github/workflows/playwright-core.yml
+    secrets: inherit

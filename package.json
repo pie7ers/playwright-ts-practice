@@ -6,7 +6,8 @@
   "scripts": {
     "make-env": "ts-node utils/makeEnv.ts",
     "test": "npx playwright test --grep-invert visual",
-    "test:visual": "npx playwright test tests/herokuapp/visual"
+    "test:visual": "npx playwright test tests/herokuapp/visual",
+    "act:wf:weekly-cron": "act workflow_dispatch -W ./.github/workflows/weekly-cron.yml"
   },
   "keywords": [],
   "author": "Sebastian Iguavita",
