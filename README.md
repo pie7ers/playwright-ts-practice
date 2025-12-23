@@ -20,4 +20,11 @@ Run:
 ## Test Pipeline Locally
 
 - brew install act #install for testing pipeline locally
-- act -j test -s ACT=true
+- execute npm run make-secrets and add the respective secrets bear in mind: 
+  - [Slack Notification](./doc/SLACK-NOTIFICATION.md)
+- basic example: act -j test -s ACT=true
+- in the [package.json](./package.json) yo will find more act commands, they start with `act` prefix
+
+## OTHER DOCUMENTATION
+
+more documentation in [Doc](./doc/)
