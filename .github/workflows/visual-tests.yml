@@ -50,5 +50,5 @@ jobs:
       if: ${{ env.ACT != 'true' && !cancelled() }}
       with:
         name: playwright-visual-report
-        path: playwright-report/
+        path: playwright-report/visual
         retention-days: 30

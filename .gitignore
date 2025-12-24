@@ -3,6 +3,7 @@ screenshots
 evidences
 videos
 .env
+.secrets
 log*
 myTest
 reports*

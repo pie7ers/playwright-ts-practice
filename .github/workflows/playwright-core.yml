@@ -47,11 +47,13 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npm test
-    - uses: actions/upload-artifact@v4
+      continue-on-error: true
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
       if: ${{ env.ACT != 'true' && !cancelled() }}
       with:
         name: playwright-report
-        path: playwright-report/
+        path: playwright-report/e2e
         retention-days: 30
 
 # -------------------------  
@@ -105,5 +107,61 @@ jobs:
       if: ${{ env.ACT != 'true' && !cancelled() }}
       with:
         name: playwright-visual-report
-        path: playwright-report/
+        path: playwright-report/visual
         retention-days: 30
+
+# -------------------------  
+# JOB 3: NOTIFY SLACK
+# -------------------------  
+  notify-slack:
+    runs-on: ubuntu-latest
+    needs: 
+      - test
+      - visual-test
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install envsubst (only for act)
+        if: ${{ env.ACT == 'true' }}
+        run: |
+          apt-get update
+          apt-get install -y gettext-base
+      - name: Prepare Slack Payload
+        run: | 
+          export GITHUB_REPOSITORY="${{ github.repository }}"
+          export GITHUB_RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          export GITHUB_WORKFLOW="${{ github.workflow }}"
+          
+          map_status () {
+            case "$1" in
+            success)   echo "✅ Success" ;;
+            skipped)   echo "⚠️ Skipped" ;;
+            cancelled) echo "⏹️ Cancelled" ;;
+            failure)   echo "❌ Failed" ;;
+            *)         echo "❓ Unknown" ;;
+            esac
+          }
+            
+          export JOB_TEST_RESULT="$(map_status "${{ needs.test.result }}")"
+          export JOB_VISUAL_TEST_RESULT="$(map_status "${{ needs.visual-test.result }}")"
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            export PR_BLOCK="*PR:* <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }}>\n*PR Title:* ${{ github.event.pull_request.title }}\n*Source Branch:* ${{ github.event.pull_request.head.ref }}\n*Destination Branch:* ${{ github.event.pull_request.base.ref }}"
+            export AUTHOR="${{ github.event.pull_request.user.login }}"
+          else
+            export PR_BLOCK="*Branch:* ${{ github.ref_name }}\n"
+            export AUTHOR="${{ github.actor }}"
+          fi
+          
+          envsubst < .github/slack/notification-playwright-tests.json > payload.json
+
+      - name: Debug Slack payload
+        run: cat payload.json
+
+      - name: Notify Slack
+        run: |
+          curl -f -X POST \
+            -H "Content-Type: application/json" \
+            --data @payload.json \
+            "${{ secrets.SLACK_WEBHOOK_URL_TEST }}"

@@ -1,0 +1,25 @@
+{
+  "text": "*Playwright Pipeline Finished*",
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Repository:* ${GITHUB_REPOSITORY}\n*Run:* <${GITHUB_RUN_URL}|View execution>\n*Workflow:* ${GITHUB_WORKFLOW}\n*Author:* ${AUTHOR}\n${PR_BLOCK}"
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*E2E Tests:*\n${JOB_TEST_RESULT}"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Visual Tests:*\n${JOB_VISUAL_TEST_RESULT}"
+        }
+      ]
+    }
+  ]
+}
