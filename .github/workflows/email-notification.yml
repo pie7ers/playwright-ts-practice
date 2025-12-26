@@ -1,0 +1,63 @@
+#This worklow has been built to work with workflows that run in PRs
+name: Notify Email on failure
+
+on:
+  workflow_call:
+    inputs:
+      report_artifact:
+        required: true
+        type: string
+      body_file:
+        required: true
+        type: string
+
+jobs:
+  email-notify:
+    runs-on: ubuntu-latest
+    env: 
+      SENDGRID_API_KEY_TEST: ${{ secrets.SENDGRID_API_KEY_TEST}}
+      SENDGRID_EMAIL_TO: ${{ secrets.SENDGRID_EMAIL_TO}}
+      SENDGRID_EMAIL_FROM: ${{ secrets.SENDGRID_EMAIL_FROM}}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Download test report
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.report_artifact }}
+          path: playwright-report/visual
+
+      - name: Filter existing attachments
+        run: |
+          ls playwright-report/visual || true
+
+      - name: Prepare Email Info
+        run: |
+          echo "GITHUB_REPOSITORY=${{ github.repository }}" >> $GITHUB_ENV
+          echo "GITHUB_RUN_URL=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
+          echo "GITHUB_WORKFLOW=${{ github.workflow }}" >> $GITHUB_ENV
+          echo "AUTHOR=${{ github.event.pull_request.user.login || github.actor}}" >> $GITHUB_ENV
+          echo "PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
+          echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "SOURCE_BRANCH=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          echo "DESTINATION_BRANCH=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+
+      - name: Build CI scripts and generate assets
+        run: |
+          npm ci
+          npm run build:ci:scripts
+          npm run email:generate-body
+
+      - name: Debug html file
+        run: cat dist/assets/visual-tests-body.html
+
+      - name: Send email via Sendgrid
+        run: |
+          npm run email:send-email

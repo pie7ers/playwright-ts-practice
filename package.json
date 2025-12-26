@@ -10,6 +10,10 @@
     "test:visual": "npx playwright test tests/herokuapp/visual --config=playwright.config.visual.ts",
     "act:wf:weekly-cron": "act workflow_dispatch -W ./.github/workflows/weekly-cron.yml -s ACT=true",
     "act:wf:playwright": "act -W ./.github/workflows/playwright.yml -s ACT=true",
+    "act:wf:visual-tests": "act -W .github/workflows/visual-tests.yml -s ACT=true",
+    "build:ci:scripts": "tsc -p tsconfig.ci.json",
+    "email:generate-body": "node dist/.github/scripts/email/writeFileEmailBodyVisualTests.js",
+    "email:send-email": "node dist/.github/scripts/email/sendEmailVisualTests.js",
     "report": "playwright show-report --host 0.0.0.0"
   },
   "keywords": [],
@@ -25,5 +29,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "urllib": "^4.8.2"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.6"
   }
 }
