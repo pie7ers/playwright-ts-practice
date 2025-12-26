@@ -17,7 +17,7 @@ export default defineConfig({
     ['list'],           // prints results in terminal
     ['html', { outputFolder: 'playwright-report', open: 'never' }] // generates HTML report but doesn’t auto-open
   ],
-  timeout: 60000,
+  timeout: 10000,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

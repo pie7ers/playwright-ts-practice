@@ -13,7 +13,8 @@ test.describe('Herokuapp Home Page', () => {
   })
 
   test('should display the correct heading', async () => {
-    const headingText = await home.getHeadingText(home.headTitle)
+    //const headingText = await home.getHeadingText(home.headTitle)
+    const headingText = await home.getHeadingText(home.page.locator('h1.headingX'))
     await home.visualTest('home-1.png')
     await home.scrollToTheEndOfThePage()
     await home.visualTest('home-2-footer.png')
