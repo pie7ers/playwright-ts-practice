@@ -1,0 +1,52 @@
+name: Notify Email on failure
+
+on:
+  workflow_call:
+    inputs:
+      report_artifact:
+        required: true
+        type: string
+      body_file:
+        required: true
+        type: string
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download test report
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.report_artifact }}
+          path: report
+
+      - name: Filter existing attachments
+        run: |
+          ls report || true
+      
+      - name: Read email body
+        run: |
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          cat "${{ inputs.body_file }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Send email via Sendgrid
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: "❌ CI failed"
+          to: ${{ secrets.EMAIL_NOTIFICATION_TEST }}
+          from: siguavita93@gmail.com
+          body: |
+            The pipeline failed.
+
+            Summary:
+            ${{ env.BODY }}
+          attachments: |
+            report/index.html
+            report/report.json
+            report/report.xml
