@@ -23,5 +23,5 @@ export const CONSTS = {
       OUTPUT_FILE_JSON: `${VISUAL_PATH}/${E2E_FILE_JSON}`,
       OUTPUT_FILE_JUNIT: `${VISUAL_PATH}/${E2E_FILE_JUNIT}`,
     },
-  }
+  },
 }

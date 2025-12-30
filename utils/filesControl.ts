@@ -1,5 +1,19 @@
 import * as fs from 'fs'
-import path from 'path'
+import * as path from 'path'
+
+interface IBufferEncoding {
+  encoding: BufferEncoding;
+  flag: string
+}
+
+const readOptions: IBufferEncoding = { encoding: 'utf8', flag: 'r' }
+
+function resolvePath(_path: string) {
+  return path.resolve(
+    process.cwd(),
+    _path
+  )
+}
 
 export function doesTheFileExist(path: string): boolean {
   try {
@@ -20,6 +34,15 @@ export function writeFile(destinationPath: string, content: string, options?: fs
   try {
     fs.writeFileSync(destinationPath, content, opt)
   } catch (error) {
-    console.log(`${error}`)
+    console.error(error)
+  }
+}
+
+export function readDataFile(sourcePath: string, options: IBufferEncoding = readOptions) {
+  try {
+    return fs.readFileSync(resolvePath(sourcePath), options)
+  }
+  catch (error) {
+    console.error(error)
   }
 }
