@@ -26,7 +26,8 @@ export default defineConfig({
     httpCredentials: {
       username: CONSTS.HEROKU_BASIC_AUTH_USER_GLOBAL,
       password: CONSTS.HEROKU_BASIC_AUTH_PASS_GLOBAL,
-    }
+    },
+    screenshot: 'only-on-failure',
   },
   //snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
   snapshotPathTemplate: '{snapshotDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}',

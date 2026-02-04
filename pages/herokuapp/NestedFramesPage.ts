@@ -1,4 +1,4 @@
-import { Page, Locator, FrameLocator } from '@playwright/test';
+import { Page, Locator, FrameLocator, TestInfo } from '@playwright/test';
 import HerokuappBase from './HerokuappBase';
 
 export default class NestedFramesPage  extends HerokuappBase {
@@ -10,8 +10,8 @@ export default class NestedFramesPage  extends HerokuappBase {
   readonly frameLocatorRight: FrameLocator;
   readonly frameLocatorBottom: FrameLocator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo);
     this.frameTop = page.locator('frame[name="frame-top"]')
     this.frameLocatorTop = page.frameLocator('frame[name="frame-top"]')
     this.frameLocatorLeft = this.frameLocatorTop.frameLocator('frame[name="frame-left"]')

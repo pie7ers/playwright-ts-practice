@@ -6,8 +6,8 @@ import { CONSTS } from '../../utils/consts'
 test.describe('Broken Images Page', () => {
   let brokenImages: BrokenImagesPage
 
-  test.beforeEach(async ({ page }) => {
-    brokenImages = new BrokenImagesPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    brokenImages = new BrokenImagesPage(page, testInfo)
     await brokenImages.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.brokenImages}`)
   })
 
@@ -15,7 +15,7 @@ test.describe('Broken Images Page', () => {
     const title = await brokenImages.getHeadingText(brokenImages.headTitle)
     expect(title).toBe(brokenImages.headTitleText)
     brokenImages.expectElementalSeleniumURL()
-    await brokenImages.fullScreenShot(`${brokenImages.mainPath}/${PAGES_PATH.brokenImages}/full-page`)
+    await brokenImages.fullScreenshot(`full-page`)
   })
 
   //forcing the value for the broken images

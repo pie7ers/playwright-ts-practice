@@ -6,8 +6,8 @@ test.describe('Digest Authetication using digest-fetch', async () => {
 
   let digestAuth: DigestAuthPage;
 
-  test.beforeEach(async ({ page }) => {
-    digestAuth = new DigestAuthPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    digestAuth = new DigestAuthPage(page, testInfo)
     await digestAuth.getDigestAuthState()
   })
 
@@ -18,6 +18,6 @@ test.describe('Digest Authetication using digest-fetch', async () => {
   test('Digest Auth new context', async () => {
     await expect(digestAuth.congratulationsText).toBeVisible()
     await digestAuth.expectElementalSeleniumURL()
-    await digestAuth.fullScreenShot(`${digestAuth.mainPath}/${PAGES_PATH.digestAuth}/full-page`)
+    await digestAuth.fullScreenshot(`full-page`)
   })
 })

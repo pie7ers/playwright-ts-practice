@@ -1,4 +1,4 @@
-import { Page, Locator, FrameLocator } from '@playwright/test'
+import { Page, Locator, FrameLocator, TestInfo } from '@playwright/test'
 import HerokuappBase from './HerokuappBase'
 
 export default class IFramesPage extends HerokuappBase {
@@ -36,8 +36,8 @@ export default class IFramesPage extends HerokuappBase {
   readonly decreaseIndentToolbar: Locator
   readonly increaseIndentToolbar: Locator
 
-  constructor(page: Page) {
-    super(page)
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo)
     this.headTitle = page.locator('h3')
     this.textTitle = 'An iFrame containing the TinyMCE WYSIWYG Editor'
     this.textArea = page.frameLocator('iframe[id="mce_0_ifr"]')

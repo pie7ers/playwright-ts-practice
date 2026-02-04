@@ -6,8 +6,8 @@ test.describe('Herokuapp Home Page', () => {
   let home: HomePage
   let evidencePath: string
 
-  test.beforeEach(async ({ page }) => {
-    home = new HomePage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    home = new HomePage(page, testInfo)
     evidencePath = `${home.mainPath}/home`
     await home.goto(CONSTS.HEROKU_BASE_URL)
   })

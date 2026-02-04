@@ -8,7 +8,7 @@ test.describe('Herokuapp Basic Auth Page', () => {
   let adminContext: BrowserContext
   let browser: Browser
 
-  test.beforeEach(async () => {
+  test.beforeEach(async ({}, testInfo) => {
     browser = await chromium.launch()
     adminContext = await browser.newContext({
       httpCredentials: {
@@ -18,14 +18,14 @@ test.describe('Herokuapp Basic Auth Page', () => {
     })
 
     const pageAdmin = await adminContext.newPage()
-    basicAuth = new BasicAuthPage(pageAdmin)
+    basicAuth = new BasicAuthPage(pageAdmin, testInfo)
     await basicAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.basicAuth}`)
   })
 
   test('Basic Auth new context', async () => {
     await expect(basicAuth.congratulationsText).toBeVisible()
     await basicAuth.expectElementalSeleniumURL()
-    await basicAuth.fullScreenShot(`${basicAuth.mainPath}/${PAGES_PATH.basicAuth}/full-page`)
+    await basicAuth.fullScreenshot(`full-page`)
   })
 
   test.afterAll(async ()=> {

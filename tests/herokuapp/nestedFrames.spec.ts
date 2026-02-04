@@ -6,15 +6,15 @@ import { CONSTS } from '../../utils/consts'
 test.describe('Herokuapp Frames Page', () => {
   let frames: NestedFramesPage
 
-  test.beforeEach(async ({ page }) => {
-    frames = new NestedFramesPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    frames = new NestedFramesPage(page, testInfo)
     await frames.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.nestedFrames}`)
   })
 
   test('validate frame top', async () => {
     await expect(frames.frameTop).toHaveAttribute('name', 'frame-top')
     const evidencePath = `${frames.mainPath}/nestedframes`
-    await frames.fullScreenShot(`${evidencePath}/full-page`)
+    await frames.fullScreenshot(`full-page`)
   })
 
   test('validate frame left', async () => {

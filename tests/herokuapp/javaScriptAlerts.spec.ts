@@ -7,8 +7,8 @@ test.describe('JavaScript Alerts', async () => {
 
   let javaScriptAlerts: JavaScriptAlertsPage;
 
-  test.beforeEach(async ({ page }) => {
-    javaScriptAlerts = new JavaScriptAlertsPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    javaScriptAlerts = new JavaScriptAlertsPage(page, testInfo)
     javaScriptAlerts.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.javaScriptAlerts}`)
   })
 
@@ -16,7 +16,7 @@ test.describe('JavaScript Alerts', async () => {
     await expect(javaScriptAlerts.headTitle).toHaveText(javaScriptAlerts.textTitle)
     await expect(javaScriptAlerts.description).toBeVisible()
     await javaScriptAlerts.expectElementalSeleniumURL()
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/full-page`)
+    await javaScriptAlerts.fullScreenshot(`full-page`)
   })
 
   test('Validate JS Alert', async () => {
@@ -29,7 +29,7 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.simpleAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.successfullSimpleJSAlertText)
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-alert-result`)
+    await javaScriptAlerts.fullScreenshot(`js-alert-result`)
   })
 
   test('Validate JS confirm dialog, confirming', async () => {
@@ -42,7 +42,7 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.confirmAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.successfullConfirmJSAlertOKText)
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-confirm-result-ok`)
+    await javaScriptAlerts.fullScreenshot(`js-confirm-result-ok`)
   })
 
   test('Validate JS confirm dialog, dismissing', async () => {
@@ -55,7 +55,7 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.confirmAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.successfullConfirmJSAlertCancelText)
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-confirm-result-cancel`)
+    await javaScriptAlerts.fullScreenshot(`js-confirm-result-cancel`)
   })
 
   test('Validate JS prompt dialog, dismissing', async () => {
@@ -68,7 +68,7 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.promptAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.successfullPromptJSAlertCancelText)
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-prompt-result-cancel`)
+    await javaScriptAlerts.fullScreenshot(`js-prompt-result-cancel`)
   })
 
   test('Validate JS prompt dialog, confirm empty text', async () => {
@@ -81,7 +81,7 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.promptAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.successfullPromptJSAlertEmptyText)
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-prompt-result-empty-text`)
+    await javaScriptAlerts.fullScreenshot(`js-prompt-result-empty-text`)
   })
 
   test('Validate JS prompt dialog, confirm with text', async () => {
@@ -95,6 +95,6 @@ test.describe('JavaScript Alerts', async () => {
       javaScriptAlerts.promptAlertMessage
     )
     await expect(javaScriptAlerts.resultText).toHaveText(javaScriptAlerts.getSuccessfullPromptJSAlertText(textComplement))
-    await javaScriptAlerts.fullScreenShot(`${javaScriptAlerts.mainPath}/${PAGES_PATH.javaScriptAlerts}/js-prompt-result-text`)
+    await javaScriptAlerts.fullScreenshot(`js-prompt-result-text`)
   })
 })

@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, TestInfo } from '@playwright/test';
 import HerokuappBase from './HerokuappBase';
 
 export default class JavaScriptAlertsPage extends HerokuappBase {
@@ -18,8 +18,8 @@ export default class JavaScriptAlertsPage extends HerokuappBase {
   readonly successfullPromptJSAlertCancelText: string
   readonly successfullPromptJSAlertEmptyText: string
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo);
     this.headTitle = page.locator('h3')
     this.description = page.getByText('Here are some examples of different JavaScript alerts which can be troublesome for automation')
     this.textTitle = 'JavaScript Alerts'

@@ -6,8 +6,8 @@ import { CONSTS } from '../../utils/consts'
 test.describe('Herokuapp Frames Page', () => {
   let frames: FramesPage
 
-  test.beforeEach(async ({ page }) => {
-    frames = new FramesPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    frames = new FramesPage(page, testInfo)
     await frames.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.frames}`)
   })
 
@@ -16,6 +16,6 @@ test.describe('Herokuapp Frames Page', () => {
     for(const item of FRAMES_MENU_ITEMS){
       expect(links).toContain(item)
     }
-    await frames.fullScreenShot(`${frames.mainPath}/${PAGES_PATH.frames}/full-page`)
+    await frames.fullScreenshot(`full-page`)
   })
 })

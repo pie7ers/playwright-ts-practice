@@ -1,4 +1,4 @@
-import { Page, Locator, BrowserContext } from '@playwright/test';
+import { Page, Locator, TestInfo } from '@playwright/test';
 import HerokuappBase from './HerokuappBase';
 import { CONSTS } from "../../utils/consts";
 import { PAGES_PATH } from "../../constants/herokuapp";
@@ -8,8 +8,8 @@ export default class BasicAuthPage extends HerokuappBase {
   readonly congratulationsText: Locator
   readonly textTitle: string
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo);
     this.headTitle = page.locator('h3');
     this.congratulationsText = page.getByText('Congratulations! You must have the proper credentials.')
     this.textTitle = 'Digest Auth'

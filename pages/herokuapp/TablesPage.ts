@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test"
+import { Locator, Page, TestInfo } from "@playwright/test"
 import HerokuappBase from "./HerokuappBase"
 import { SortDirection } from "../../tests/helpers/sorting";
 
@@ -27,8 +27,8 @@ export default class TablePage extends HerokuappBase {
     action: { id: 6, sortState: 'none', class: 'action' },
   }
 
-  constructor(page: Page) {
-    super(page)
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo)
     this.headTitle = page.locator('h3')
   }
 

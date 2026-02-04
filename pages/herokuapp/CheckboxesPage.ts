@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, TestInfo } from "@playwright/test";
 import HerokuappBase from "./HerokuappBase";
 
 export default class ChecboxePage extends HerokuappBase {
@@ -7,8 +7,8 @@ export default class ChecboxePage extends HerokuappBase {
   readonly checkbox1: Locator;
   readonly checkbox2: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo);
     this.headTitle = page.locator("h3");
     this.checkboxList = page.locator("#checkboxes > input[type=checkbox]");
     this.checkbox1 = page.locator(
