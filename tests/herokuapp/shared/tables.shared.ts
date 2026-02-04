@@ -12,8 +12,8 @@ export function runTableTests(tableId: TableIds) {
 
   test.describe(`Herokuapp Tables Page ${tableId}`, () => {
 
-    test.beforeEach(async ({ page }) => {
-      tablesPage = new TablesPage(page)
+    test.beforeEach(async ({ page }, testInfo) => {
+      tablesPage = new TablesPage(page, testInfo)
       await tablesPage.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.tables}`)
     })
 

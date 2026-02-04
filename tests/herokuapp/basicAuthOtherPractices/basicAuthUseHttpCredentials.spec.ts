@@ -13,14 +13,14 @@ test.use({
 test.describe('Herokuapp Basic Auth Page', () => {
   let basicAuth: BasicAuthPage
 
-  test.beforeEach(async ({ page }) => {
-    basicAuth = new BasicAuthPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    basicAuth = new BasicAuthPage(page, testInfo)
     await basicAuth.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.basicAuth}`)
   })
 
   test('Basic Auth use http credentials from test file', async () => {
     await expect(basicAuth.congratulationsText).toBeVisible()
     await basicAuth.expectElementalSeleniumURL()
-    await basicAuth.fullScreenShot(`${basicAuth.mainPath}/${PAGES_PATH.basicAuth}/full-page`)
+    await basicAuth.fullScreenshot(`${basicAuth.mainPath}/${PAGES_PATH.basicAuth}/full-page`)
   })
 })

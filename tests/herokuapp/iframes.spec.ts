@@ -7,14 +7,14 @@ import { IResize } from '../../pages/PlaywrightBase'
 test.describe('Herokuapp IFrames Page', () => {
   let iframes: IFramesPage
 
-  test.beforeEach(async ({ page }) => {
-    iframes = new IFramesPage(page)
+  test.beforeEach(async ({ page }, testInfo) => {
+    iframes = new IFramesPage(page, testInfo)
     await iframes.goto(`${CONSTS.HEROKU_BASE_URL}/${PAGES_PATH.iframe}`)
   })
 
   test('validate text title', async () => {
     await expect(iframes.headTitle).toHaveText(iframes.textTitle)
-    await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/full-page`)
+    await iframes.fullScreenshot(`full-page`)
   })
 
   test('validate warning box and its content', async () => {
@@ -29,7 +29,7 @@ test.describe('Herokuapp IFrames Page', () => {
   test('validate text area default content', async () => {
     await iframes.closeWarningContainer()
     await expect(iframes.textAreaContent).toHaveText(iframes.textAreaContentText)
-    await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/warning-box-closed`)
+    await iframes.fullScreenshot(`warning-box-closed`)
   })
 
   test('validate disabled elements', async () => {
@@ -57,7 +57,7 @@ test.describe('Herokuapp IFrames Page', () => {
     }
 
     await iframes.resizeElement(resizeOptions)
-    await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/reducing-text-area`)
+    await iframes.fullScreenshot(`reducing-text-area`)
   })
 
   test('resize text area increasing the size (only vertical)', async ({page}) => {
@@ -67,6 +67,6 @@ test.describe('Herokuapp IFrames Page', () => {
     }
 
     await iframes.resizeElement(resizeOptions)
-    await iframes.fullScreenShot(`${iframes.mainPath}/${PAGES_PATH.iframe}/increasing-text-area`)
+    await iframes.fullScreenshot(`increasing-text-area`)
   })
 })

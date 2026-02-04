@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Page, Locator, expect, TestInfo } from "@playwright/test";
 import PlaywrightBase from "../PlaywrightBase";
 import { request, RequestOptions } from 'urllib';
 import { CONSTS } from "../../utils/consts";
@@ -9,8 +9,8 @@ export default class HerokuappBase extends PlaywrightBase {
   readonly footherPoweredBy: Locator;
   readonly mainPath = 'herokuapp';
 
-  constructor(page: Page) {
-    super(page);
+  constructor(page: Page, testInfo: TestInfo) {
+    super(page, testInfo);
     this.exampleLinks = page.locator('ul li a');
     this.footherPoweredBy = page.getByRole('link', { name: 'Elemental Selenium' })
   }
