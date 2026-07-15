@@ -1,10 +1,12 @@
 # SLACK-NOTIFICATION 
 
 ## Webhook URL 
+- in slack create a channel ![](./images/slack-new-channel.png)
 - go to https://api.slack.com/apps
 - create new app (select from scratch)
 - set a name and the workspace
 - in features section go to incoming webhooks and enable it
+- add webhook ![](./images/slack-channel-for-webhook.png)
 - copy the webhook url ![](./images/slack-webhook-url.png)
 
 > [!NOTE]
@@ -17,6 +19,7 @@
 
 > [!NOTE]
 > the free Slack package should be sufficient for the job notifications
+> email account used ****93@gmail.com
 
 > [!WARNING]  
 > Bear in mind when executing the jobs locally via act, links will not work

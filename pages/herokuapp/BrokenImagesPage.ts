@@ -1,8 +1,7 @@
-import { Page, Locator, TestInfo } from '@playwright/test';
-import HerokuappBase from './HerokuappBase';
+import { Page, Locator, TestInfo } from "@playwright/test";
+import HerokuappBase from "./HerokuappBase";
 
-export default class BrokenImagesPage  extends HerokuappBase {
-  
+export default class BrokenImagesPage extends HerokuappBase {
   readonly headTitle: Locator;
   readonly headTitleText: string;
   readonly images: Locator;
@@ -10,11 +9,11 @@ export default class BrokenImagesPage  extends HerokuappBase {
   readonly lastImage: Locator;
 
   constructor(page: Page, testInfo: TestInfo) {
-      super(page, testInfo);
-    this.headTitle = page.locator('h3');
-    this.headTitleText = 'Broken Images'
+    super(page, testInfo);
+    this.headTitle = page.locator("h3");
+    this.headTitleText = "Broken Images";
     this.images = page.locator('div[class="example"] > img');
-    this.firstImage = this.images.first()
-    this.lastImage = this.images.nth(2)
+    this.firstImage = this.images.first();
+    this.lastImage = this.images.nth(2);
   }
 }

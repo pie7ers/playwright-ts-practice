@@ -15,9 +15,9 @@ jobs:
   email-notify:
     runs-on: ubuntu-latest
     env: 
-      SENDGRID_API_KEY_TEST: ${{ secrets.SENDGRID_API_KEY_TEST}}
-      SENDGRID_EMAIL_TO: ${{ secrets.SENDGRID_EMAIL_TO}}
-      SENDGRID_EMAIL_FROM: ${{ secrets.SENDGRID_EMAIL_FROM}}
+      SENDGRID_API_KEY_TEST: ${{ secrets.SENDGRID_API_KEY_TEST }}
+      SENDGRID_EMAIL_TO: ${{ secrets.SENDGRID_EMAIL_TO }}
+      SENDGRID_EMAIL_FROM: ${{ secrets.SENDGRID_EMAIL_FROM }}
 
     steps:
       - name: Checkout repository
