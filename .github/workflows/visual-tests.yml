@@ -53,12 +53,23 @@ jobs:
         path: playwright-report/visual
         retention-days: 30
 
-  email-notify:
-      needs: [visual-test-wf]
-      if: failure()
-      uses: ./.github/workflows/email-notification.yml
-      secrets: inherit
-      with:
-        #artifcat name
-        report_artifact: playwright-visual-report
-        body_file: dist/assets/visual-tests-body.html
+# Commented due to Sendgrid plan has expired
+#  email-notify:
+#      needs: [visual-test-wf]
+#      if: always()
+#      uses: ./.github/workflows/email-notification.yml
+#      secrets: inherit
+#      with:
+#        #artifcat name
+#        report_artifact: playwright-visual-report
+#        body_file: dist/assets/visual-tests-body.html
+#
+#  email-notify-when-fails:
+#      needs: [visual-test-wf]
+#      if: failure()
+#      uses: ./.github/workflows/email-notification.yml
+#      secrets: inherit
+#      with:
+#        #artifcat name
+#        report_artifact: playwright-visual-report
+#        body_file: dist/assets/visual-tests-body.html
